@@ -1,6 +1,58 @@
-﻿<h3>Calculadora</h3>
-@page "/calculadora"
+﻿@page "/calculadora"
+
+@rendermode RenderMode.InteractiveServer
+
+<div class="calculator">
+
+    <input type="text" class="calculator-screen" disabled value="this.CurrentValue" />
+
+    <div class="calculator-keys">
+        <button type="button" @onclick="()=>{ OnNumberClick('+'); }" class="operator" value="+">+</button>
+        <button type="button" @onclick="()=>{ OnNumberClick('-'); }" class="operator" value="-">-</button>
+        <button type="button" @onclick="()=>{ OnNumberClick('x'); }" class="operator" value="*">&times;</button>
+        <button type="button" @onclick="()=>{ OnNumberClick('/'); }" class="operator" value="/">&divide;</button>
+
+        <button type="button" @onclick="()=>{ OnNumberClick('4'); }" value="4">4</button>
+        <button type="button" @onclick="()=>{ OnNumberClick('5'); }" value="5">5</button>
+        <button type="button" @onclick="()=>{ OnNumberClick('6'); }" value="6">6</button>
+
+        <button type="button" @onclick="()=>{ OnNumberClick('1'); }" value="1">1</button>
+        <button type="button" @onclick="()=>{ OnNumberClick('2'); }" value="2">2</button>
+        <button type="button" @onclick="()=>{ OnNumberClick('3'); }" value="3">3</button>
+
+        <button type="button" value="0">0</button>
+        <button type="button" value=".">.</button>
+        <button type="button" @onclick=OnClearClick class="all-clear" value="all-clear">AC</button>
+        <button type="button" class="equal-sign operator" value="=">=</button>
+    </div>
+</div>
 
 @code {
+    public string? LefValue { get; set; } = string.Empty;
+    public string? OperatorValue { get; set; } = string.Empty;
+    public string? RightValue { get; set; } = string.Empty;
+
+    public string CurrentValue => $"{this.LefValue} {this.OperatorValue} {this.RightValue}";
+
+    void OnNumberClick(char val)
+    {
+        // Decidir se tem que preencher o lado esquerdo ou direito
+
+        if (string.IsNullOrWhiteSpace(this.OperatorValue))
+        {
+            //lógica quando o operador tiver nulo...
+        }
+        else
+        {
+            //lógica quando o operador não tiver nulo
+        }
+
+        //this.CurrentValue += " " + val;
+    }
+
+    void OnClearClick()
+    {
+        //this.CurrentValue = "";
+    }
 
 }

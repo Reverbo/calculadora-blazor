@@ -21,7 +21,7 @@
 
         <button type="button" value="0">0</button>
         <button type="button" value=".">.</button>
-        <button type="button" class="all-clear" value="all-clear">AC</button>
+        <button type="button" @onclick=OnClearClick class="all-clear" value="all-clear">AC</button>
         <button type="button" class="equal-sign operator" value="=">=</button>
     </div>
 </div>
@@ -32,6 +32,11 @@
     void OnNumberClick(char val)
     {
         this.CurrentValue += " " + val;
+    }
+
+    void OnClearClick()
+    {
+        this.CurrentValue = "";
     }
 
 }

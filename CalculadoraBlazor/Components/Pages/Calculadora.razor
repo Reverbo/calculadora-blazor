@@ -4,7 +4,7 @@
 
 <div class="calculator">
 
-    <input type="text" class="calculator-screen" disabled @bind-value="this.CurrentValue" />
+    <input type="text" class="calculator-screen" disabled value="this.CurrentValue" />
 
     <div class="calculator-keys">
         <button type="button" @onclick="()=>{ OnNumberClick('+'); }" class="operator" value="+">+</button>

@@ -3,6 +3,7 @@
 @rendermode RenderMode.InteractiveServer
 
 <div class="calculator">
+
     <input type="text" class="calculator-screen" disabled @bind-value="this.CurrentValue" />
 
     <div class="calculator-keys">
@@ -27,16 +28,31 @@
 </div>
 
 @code {
-    public string CurrentValue { get; set; } = string.Empty;
+    public string? LefValue { get; set; } = string.Empty;
+    public string? OperatorValue { get; set; } = string.Empty;
+    public string? RightValue { get; set; } = string.Empty;
+
+    public string CurrentValue => $"{this.LefValue} {this.OperatorValue} {this.RightValue}";
 
     void OnNumberClick(char val)
     {
-        this.CurrentValue += " " + val;
+        // Decidir se tem que preencher o lado esquerdo ou direito
+
+        if (string.IsNullOrWhiteSpace(this.OperatorValue))
+        {
+            //lógica quando o operador tiver nulo...
+        }
+        else
+        {
+            //lógica quando o operador não tiver nulo
+        }
+
+        //this.CurrentValue += " " + val;
     }
 
     void OnClearClick()
     {
-        this.CurrentValue = "";
+        //this.CurrentValue = "";
     }
 
 }

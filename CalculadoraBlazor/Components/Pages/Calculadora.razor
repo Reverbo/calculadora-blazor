@@ -1,6 +1,37 @@
-﻿<h3>Calculadora</h3>
-@page "/calculadora"
+﻿@page "/calculadora"
+
+@rendermode RenderMode.InteractiveServer
+
+<div class="calculator">
+    <input type="text" class="calculator-screen" disabled @bind-value="this.CurrentValue" />
+
+    <div class="calculator-keys">
+        <button type="button" @onclick="()=>{ OnNumberClick('+'); }" class="operator" value="+">+</button>
+        <button type="button" @onclick="()=>{ OnNumberClick('-'); }" class="operator" value="-">-</button>
+        <button type="button" @onclick="()=>{ OnNumberClick('x'); }" class="operator" value="*">&times;</button>
+        <button type="button" @onclick="()=>{ OnNumberClick('/'); }" class="operator" value="/">&divide;</button>
+
+        <button type="button" @onclick="()=>{ OnNumberClick('4'); }" value="4">4</button>
+        <button type="button" @onclick="()=>{ OnNumberClick('5'); }" value="5">5</button>
+        <button type="button" @onclick="()=>{ OnNumberClick('6'); }" value="6">6</button>
+
+        <button type="button" @onclick="()=>{ OnNumberClick('1'); }" value="1">1</button>
+        <button type="button" @onclick="()=>{ OnNumberClick('2'); }" value="2">2</button>
+        <button type="button" @onclick="()=>{ OnNumberClick('3'); }" value="3">3</button>
+
+        <button type="button" value="0">0</button>
+        <button type="button" value=".">.</button>
+        <button type="button" class="all-clear" value="all-clear">AC</button>
+        <button type="button" class="equal-sign operator" value="=">=</button>
+    </div>
+</div>
 
 @code {
+    public string CurrentValue { get; set; } = string.Empty;
+
+    void OnNumberClick(char val)
+    {
+        this.CurrentValue += " " + val;
+    }
 
 }

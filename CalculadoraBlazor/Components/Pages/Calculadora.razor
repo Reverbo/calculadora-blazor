@@ -4,13 +4,12 @@
 
 <div class="calculator">
 
-    <input type="text" class="calculator-screen" disabled value="this.CurrentValue" />
-
+    <input type="text" class="calculator-screen" disabled value="@this.CurrentValue" />
     <div class="calculator-keys">
-        <button type="button" @onclick="()=>{ OnNumberClick('+'); }" class="operator" value="+">+</button>
-        <button type="button" @onclick="()=>{ OnNumberClick('-'); }" class="operator" value="-">-</button>
-        <button type="button" @onclick="()=>{ OnNumberClick('x'); }" class="operator" value="*">&times;</button>
-        <button type="button" @onclick="()=>{ OnNumberClick('/'); }" class="operator" value="/">&divide;</button>
+        <button type="button" @onclick="()=>{ OnOperatorClick('+'); }" class="operator" value="+">+</button>
+        <button type="button" @onclick="()=>{ OnOperatorClick('-'); }" class="operator" value="-">-</button>
+        <button type="button" @onclick="()=>{ OnOperatorClick('x'); }" class="operator" value="*">&times;</button>
+        <button type="button" @onclick="()=>{ OnOperatorClick('/'); }" class="operator" value="/">&divide;</button>
 
         <button type="button" @onclick="()=>{ OnNumberClick('4'); }" value="4">4</button>
         <button type="button" @onclick="()=>{ OnNumberClick('5'); }" value="5">5</button>
@@ -20,7 +19,7 @@
         <button type="button" @onclick="()=>{ OnNumberClick('2'); }" value="2">2</button>
         <button type="button" @onclick="()=>{ OnNumberClick('3'); }" value="3">3</button>
 
-        <button type="button" value="0">0</button>
+        <button type="button" @onclick="()=>{ OnNumberClick('0'); }" value="0">0</button>
         <button type="button" value=".">.</button>
         <button type="button" @onclick=OnClearClick class="all-clear" value="all-clear">AC</button>
         <button type="button" class="equal-sign operator" value="=">=</button>
@@ -28,28 +27,35 @@
 </div>
 
 @code {
-    public string? LefValue { get; set; } = string.Empty;
-    public string? OperatorValue { get; set; } = string.Empty;
+    public string? LeftValue { get; set; } = string.Empty;
+    public char? OperatorValue { get; set; } 
     public string? RightValue { get; set; } = string.Empty;
 
-    public string CurrentValue => $"{this.LefValue} {this.OperatorValue} {this.RightValue}";
+    public string CurrentValue => $"{this.LeftValue} {this.OperatorValue} {this.RightValue}";
 
+    void OnOperatorClick(char val)
+    {
+        this.OperatorValue = val;
+
+    }
     void OnNumberClick(char val)
     {
+
         // Decidir se tem que preencher o lado esquerdo ou direito
 
-        if (string.IsNullOrWhiteSpace(this.OperatorValue))
+        if (string.IsNullOrWhiteSpace(this.OperatorValue?.ToString()))
         {
+            this.LeftValue = this.LeftValue + val;
             //lógica quando o operador tiver nulo...
         }
         else
         {
+            this.RightValue = this.RightValue + val;
             //lógica quando o operador não tiver nulo
         }
 
         //this.CurrentValue += " " + val;
     }
-
     void OnClearClick()
     {
         //this.CurrentValue = "";

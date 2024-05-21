@@ -20,9 +20,9 @@
         <button type="button" @onclick="()=>{ OnNumberClick('3'); }" value="3">3</button>
 
         <button type="button" @onclick="()=>{ OnNumberClick('0'); }" value="0">0</button>
-        <button type="button" value=".">.</button>
+        <button type="button" @onclick="()=>{ OnDecimalClick('.'); }" value=".">.</button>
         <button type="button" @onclick=OnClearClick class="all-clear" value="all-clear">AC</button>
-        <button type="button" class="equal-sign operator" value="=">=</button>
+        <button type="button" @onclick=OnEqualClick class="equal-sign operator" value="=">=</button>
     </div>
 </div>
 
@@ -56,9 +56,55 @@
 
         //this.CurrentValue += " " + val;
     }
-    void OnClearClick()
+    void OnDecimalClick(char val)
     {
-        //this.CurrentValue = "";
+        if (string.IsNullOrWhiteSpace(this.OperatorValue?.ToString()))
+        {
+            this.LeftValue = this.LeftValue + val;
+        }
+        else
+        {
+            
+            Convert.ToDouble(this.RightValue);
+             this.RightValue = this.RightValue + val;
+
+        }
     }
 
+    void OnClearClick()
+    {
+        this.LeftValue = string.Empty;
+        this.OperatorValue = null;
+        this.RightValue = string.Empty;
+    }
+
+    void OnEqualClick()
+    {
+        if (!string.IsNullOrWhiteSpace(this.LeftValue) && this.OperatorValue.HasValue && !string.IsNullOrWhiteSpace(this.RightValue))
+        {
+            var left = double.Parse(this.LeftValue.Replace(".",","));
+            var right = double.Parse(this.RightValue.Replace(".",","));
+            double result = 0;
+
+            switch (this.OperatorValue)
+            {
+                case '+':
+                    result = left + right;
+                    break;
+                case '-':
+                    result = left - right;
+                    break;
+                case '*':
+                    result = left * right;
+                    break;
+                case '/':
+                    result = left / right;
+                    break;
+            }
+
+            this.LeftValue = result.ToString();
+            this.OperatorValue = null;
+            this.RightValue = string.Empty;
+        }
+    }
 }
